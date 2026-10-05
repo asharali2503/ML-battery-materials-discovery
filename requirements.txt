@@ -1,0 +1,10 @@
+pandas
+numpy
+requests
+pytest
+jupyterlab
+obelix-data
+mp-api
+python-dotenv
+shap
+matplotlib
