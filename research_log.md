@@ -14,3 +14,10 @@ The top 3 predictive features driving solid-state ionic conductivity were found 
 1. `MagpieData mean CovalentRadius` (~0.21 importance)
 2. `MagpieData avg_dev SpaceGroupNumber` (~0.08 importance)
 3. `MagpieData mean Electronegativity` (~0.05 importance)
+
+## Phase 4: Data Quality Audit & Pipeline Re-synchronization (2026-10-06)
+Following a rigorous scientific audit, the variance threshold for duplicate compositions was tightened from 2.0 down to 1.0 orders of magnitude. This strictly removed 18 highly ambiguous polymorphic/noise entries, reducing our baseline to 500 high-confidence unique solid-state materials. 
+
+The entire machine learning pipeline was synchronized and re-evaluated on this new baseline:
+- **GroupKFold Domain Extrapolation:** The mean $R^2$ slightly improved to **0.1172** (up from 0.1103), while MAE improved to **1.9885** (down from 2.10). The core finding remains identical: composition-only models still suffer from massive Chemical Domain Overfitting and cannot safely zero-shot extrapolate out-of-domain.
+- **Top MP Candidate:** The retrained Random Forest reaffirmed **$LiLa_{5}Ti_{8}O_{24}$ (LLTO)** as the most promising thermodynamically stable candidate in the sample batch, shifting its predicted room-temperature log10(conductivity) slightly from -3.78 to **-4.03** (~ $9.33 \times 10^{-5}$ S/cm).
