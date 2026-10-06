@@ -20,7 +20,7 @@ By opening the Random Forest "black box" (via native Gini feature importances), 
 ## Top Candidate Identification
 After training on the complete, cleaned dataset, we executed a domain-restricted query against the modern Materials Project API to retrieve computationally stable and metastable, lithium-containing candidates. 
 
-Our pipeline flagged **$LiLa_{5}Ti_{8}O_{24}$** as a primary candidate for further investigation. Notably, this composition belongs to the well-known Lithium Lanthanum Titanate (LLTO) family of perovskite-type solid electrolytes. The fact that the model independently selected a known high-conductivity chemical space from a raw database query serves as strong physical validation of the model's relevance, rather than claiming the invention of a completely new chemistry.
+Our pipeline flagged **$LiLa_{5}Ti_{8}O_{24}$** as a primary candidate for further investigation. Notably, this composition belongs to the well-known Lithium Lanthanum Titanate (LLTO) family of perovskite-type solid electrolytes. The fact that the model independently selected a known high-conductivity chemical space from a raw database query provides supporting physical context and plausibility for the model's relevance, rather than claiming the invention of a completely new chemistry or constituting independent experimental validation.
 - **Energy Above Hull:** 0.047 eV/atom (metastable; not thermodynamically stable at 0K, though potentially synthesizable in practice)
 - **Predicted log10(Conductivity):** -4.03 (~$9.33 \times 10^{-5}$ S/cm)
 
