@@ -1,7 +1,7 @@
 # Solid-State Battery Materials: Machine Learning Screening Conclusions
 
 ## Project Objective
-The primary objective of this project was to predict the room-temperature ionic conductivity of lithium-ion solid electrolytes using strictly composition-based Magpie features, enabling rapid computational screening of thermodynamically stable candidates from the Materials Project.
+The primary objective of this project was to predict the room-temperature ionic conductivity of lithium-ion solid electrolytes using strictly composition-based Magpie features, enabling rapid computational screening of potentially synthesizable candidates from the Materials Project based on heuristic stability criteria.
 
 ## Methodological Rigor
 To ensure physical reliability and eliminate data leakage, we implemented a rigorous data processing and validation pipeline:
@@ -18,7 +18,7 @@ By opening the Random Forest "black box" (via native Gini feature importances), 
 *Caveat:* While these features possess strong physical intuition, they represent predictive correlations rather than continuous physical laws. In composition-only models, features like electronegativity may partially act as mathematical proxies separating distinct chemical families (e.g., oxides vs. sulfides) rather than capturing continuous physical mechanisms.
 
 ## Top Candidate Identification
-After training on the complete, cleaned dataset, we executed a domain-restricted query against the modern Materials Project API to retrieve thermodynamically stable, lithium-containing candidates. 
+After training on the complete, cleaned dataset, we executed a domain-restricted query against the modern Materials Project API to retrieve computationally stable and metastable, lithium-containing candidates. 
 
 Our pipeline flagged **$LiLa_{5}Ti_{8}O_{24}$** as a primary candidate for further investigation. Notably, this composition belongs to the well-known Lithium Lanthanum Titanate (LLTO) family of perovskite-type solid electrolytes. The fact that the model independently selected a known high-conductivity chemical space from a raw database query serves as strong physical validation of the model's relevance, rather than claiming the invention of a completely new chemistry.
 - **Energy Above Hull:** 0.047 eV/atom (metastable; not thermodynamically stable at 0K, though potentially synthesizable in practice)
