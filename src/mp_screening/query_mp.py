@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 def query_stable_li_materials(limit: int = 100) -> pd.DataFrame:
     """
-    Queries the Materials Project for thermodynamically stable lithium-containing 
+    Queries the Materials Project for thermodynamically stable or metastable lithium-containing 
     materials (energy_above_hull <= 0.05 eV/atom).
     Restricts to domains containing Oxygen or Sulfur to avoid out-of-domain errors.
     """

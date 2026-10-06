@@ -5,7 +5,7 @@
 ## Phase 2: Domain Generalization and Materials Project Integration (2026-10-05)
 The ML-007 GroupKFold evaluation demonstrated that composition-only features suffer severely from **Chemical Domain Overfitting**. While random cross-validation yielded an $R^2$ of ~0.67, true zero-shot domain extrapolation (predicting unseen anion families) plummeted the $R^2$ to ~0.11. 
 
-Consequently, we must restrict our subsequent Materials Project (MP) screening to the model's *known applicability domain* (e.g., specific known anions like Oxides and Sulfides) to ensure physical reliability in our conductivity predictions. We are integrating the modern `mp-api` to query thermodynamically stable, lithium-containing candidates strictly within these validated domains.
+Consequently, we must restrict our subsequent Materials Project (MP) screening to the model's *known applicability domain* (e.g., specific known anions like Oxides and Sulfides) to ensure physical reliability in our conductivity predictions. We are integrating the modern `mp-api` to query thermodynamically stable and metastable, lithium-containing candidates (energy_above_hull <= 0.05) strictly within these validated domains.
 
 ## Phase 3: Feature Explainability (2026-10-05)
 To interpret the Random Forest model's physical rule learning, we attempted to generate a SHAP summary plot. Due to strict OS-level DLL application control policies blocking `shap` dependencies, the final visualization (`shap_summary.png`) relies on the model's native Gini feature importances. 
@@ -20,4 +20,4 @@ Following a rigorous scientific audit, the variance threshold for duplicate comp
 
 The entire machine learning pipeline was synchronized and re-evaluated on this new baseline:
 - **GroupKFold Domain Extrapolation:** The mean $R^2$ slightly improved to **0.1172** (up from 0.1103), while MAE improved to **1.9885** (down from 2.10). The core finding remains identical: composition-only models still suffer from massive Chemical Domain Overfitting and cannot safely zero-shot extrapolate out-of-domain.
-- **Top MP Candidate:** The retrained Random Forest reaffirmed **$LiLa_{5}Ti_{8}O_{24}$ (LLTO)** as the most promising thermodynamically stable candidate in the sample batch, shifting its predicted room-temperature log10(conductivity) slightly from -3.78 to **-4.03** (~ $9.33 \times 10^{-5}$ S/cm).
+- **Top MP Candidate:** The retrained Random Forest reaffirmed **$LiLa_{5}Ti_{8}O_{24}$ (LLTO)** as the most promising metastable (yet practically synthesizable) candidate in the sample batch, shifting its predicted room-temperature log10(conductivity) slightly from -3.78 to **-4.03** (~ $9.33 \times 10^{-5}$ S/cm).
