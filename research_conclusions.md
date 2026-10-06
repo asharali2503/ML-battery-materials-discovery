@@ -11,7 +11,7 @@ To ensure physical reliability and eliminate data leakage, we implemented a rigo
 
 ## Feature Drivers
 By opening the Random Forest "black box" (via native Gini feature importances), we identified the primary compositional drivers of conductivity:
-1. **`MagpieData mean CovalentRadius`:** The dominant predictor. This likely acts as a structural proxy for the average interstitial volume or bottleneck size within the crystal lattice, which physically governs lithium-ion migration.
+1. **`MagpieData mean CovalentRadius`:** The dominant predictor. Because this is a strict composition-only model, this feature is purely a statistical aggregation of elemental covalent radii. It acts as a compositional marker separating chemical families, but it does NOT contain or learn actual crystallographic structural data, grain boundaries, or lithium-ion migration bottlenecks.
 2. **`MagpieData avg_dev SpaceGroupNumber`:** This is a composition-only model. Features such as `SpaceGroupNumber` represent composition-weighted averages of the elemental standard states, NOT the true crystallographic structure or symmetry of the compound. While mathematically predictive, this repository explicitly acknowledges that true structural information (such as distinct polymorphs or specific lattice arrangements) cannot be resolved by these elemental proxy features.
 3. **`MagpieData mean Electronegativity`:** A known proxy for lattice polarizability. A softer, more polarizable anion framework (lower average electronegativity) typically weakens the electrostatic binding between the lithium ion and the lattice, facilitating higher mobility.
 
