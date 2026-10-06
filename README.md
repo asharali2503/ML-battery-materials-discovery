@@ -6,8 +6,10 @@ The primary objective of this project is to evaluate the applicability boundarie
 ## Methodological Rigor
 This pipeline ensures absolute scientific integrity and prevents data leakage:
 - **Dataset Curation:** Built upon the experimental OBELiX solid-state electrolyte dataset.
-- **Duplicate Aggregation:** Formulas exhibiting high physical variance (>100x variance in conductivity measurements across labs/polymorphs) were explicitly dropped, while low-variance duplicates were safely median-aggregated in log-space.
+- **Duplicate Aggregation:** Formulas exhibiting high physical variance (>1.0 order of magnitude variance in conductivity measurements across labs/polymorphs) were explicitly dropped to prevent unsafe aggregation, removing 18 ambiguous compositions. Low-variance duplicates were safely median-aggregated in log-space, resulting in a strictly robust baseline of exactly 500 unique solid-state materials.
 - **Strict Cross-Validation:** A custom scikit-learn `Pipeline` (integrating imputation and standardization) was placed inside the CV loop to dynamically recalculate statistics exclusively on training folds, entirely eliminating data leakage.
+- **Applicability Domain (AD) Filtering:** Before predicting on new Materials Project candidates, the pipeline calculates the 95th percentile Nearest Neighbors distance of the scaled training data. Any candidate exceeding this distance threshold is rigorously dropped to mathematically prevent blind extrapolation.
+- **Uncertainty Quantification (UQ):** Candidates that survive the AD filter are ranked via a Lower Confidence Bound (LCB). By computing the standard deviation across the Random Forest trees and subtracting it from the mean prediction, the model explicitly penalizes highly uncertain predictions, ensuring top candidates are both high-performing and reliably predicted.
 
 ## Key Findings
 - **Chemical Domain Overfitting:** Standard random cross-validation produced a deceptively strong $R^2 \approx 0.67$. However, implementing a stringent `GroupKFold` strategy—where the model was tested entirely on held-out anion families (true zero-shot extrapolation)—revealed a collapse in performance ($R^2 \approx 0.11$). This mathematically proved that composition-only features cannot safely extrapolate conductivity predictions across radically different crystal chemistry families.
